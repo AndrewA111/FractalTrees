@@ -7,7 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.border.EmptyBorder;
 
-
+/**
+ * Class to contain sliders used to vary parameters 
+ * for symmetrical fractal tree
+ * @author Andrew Allan
+ *
+ */
 public class SliderPanel extends JPanel{
 	
 	// Model and controller
@@ -46,7 +51,7 @@ public class SliderPanel extends JPanel{
 		
 		JLabel lengthLabel = new JLabel("Length:");
 		lengthLabel.setBorder(new EmptyBorder(0,10,0,0));
-		this.lengthSlider = new JSlider(25, 150, this.model.getTrunkLength());
+		this.lengthSlider = new JSlider(25, 150, this.model.getSymModel().getTrunkLength());
 		
 		// Ticks
 		this.lengthSlider.setMajorTickSpacing(25);
@@ -73,7 +78,7 @@ public class SliderPanel extends JPanel{
 		
 		JLabel lengthRatioLabel = new JLabel("Length Ratio:");
 		lengthRatioLabel.setBorder(new EmptyBorder(0,10,0,0));
-		this.lengthRatioSlider = new JSlider(70, 95, (int) (this.model.getLengthRatio() * 100));
+		this.lengthRatioSlider = new JSlider(70, 95, (int) (this.model.getSymModel().getLengthRatio() * 100));
 		
 		// Ticks
 		this.lengthRatioSlider.setMajorTickSpacing(25);
@@ -100,7 +105,7 @@ public class SliderPanel extends JPanel{
 		
 		JLabel angleLabel = new JLabel("Angle:");
 		angleLabel.setBorder(new EmptyBorder(0,10,0,0));
-		this.angleSlider = new JSlider(0, 90, this.model.getAngleDelta());
+		this.angleSlider = new JSlider(0, 90, this.model.getSymModel().getAngleDelta());
 		
 		// Ticks
 		this.angleSlider.setMajorTickSpacing(20);
@@ -124,7 +129,7 @@ public class SliderPanel extends JPanel{
 		 */
 		JLabel depthLabel = new JLabel("Recursion Depth:");
 		depthLabel.setBorder(new EmptyBorder(0,10,0,0));
-		this.depthSlider = new JSlider(0, 20, this.model.getDepth());
+		this.depthSlider = new JSlider(0, 20, this.model.getSymModel().getDepth());
 		
 		// Ticks
 		this.depthSlider.setMajorTickSpacing(20);

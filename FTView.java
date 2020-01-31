@@ -69,7 +69,7 @@ public class FTView extends JFrame{
 		this.symTreePanel = new SymTreePanel(this.model, this.controller);
 		
 		// Create random tree panel
-		this.randomTreePanel = new RandomTreePanel();
+		this.randomTreePanel = new RandomTreePanel(this.model, Color.WHITE);
 		
 		// Create multi-split tree panel
 		this.multiSplitPanel = new MultiSplitPanel();

@@ -37,7 +37,8 @@ public class SymTreePanel extends JPanel{
 		this.add(this.treePanel);
 		this.add(this.sliderPanel, BorderLayout.SOUTH);
 	}
-
+	
+	// Getters
 	public TreePanel getTreePanel() {
 		return treePanel;
 	}

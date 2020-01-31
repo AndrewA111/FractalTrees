@@ -5,6 +5,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * NavBar class to hold buttons to switch between tabs
+ * @author Andrew Allan
+ *
+ */
 public class NavBarPanel extends JPanel{
 	
 	// Three sub-panels to act as three buttons
