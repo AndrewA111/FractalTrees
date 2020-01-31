@@ -29,17 +29,14 @@ public class FTView extends JFrame{
 	// Border panel
 	private BorderedPanel borderPanel;
 	
-	// Panel to contain symmetrical fractal tree
-	private TreePanel treePanel;
+	// Panel to contain symmetrical tree and sliders
+	private SymTreePanel symTreePanel;
 	
 	// Panel to contain random fractal tree
 	private RandomTreePanel randomTreePanel;
 	
 	// Panel to contain multi-split fractal tree
 	private MultiSplitPanel multiSplitPanel;
-	
-	// Panel to contain sliders
-	private SliderPanel sliderPanel;
 	
 	// Panel to contain NavBar
 	private NavBarPanel navBarPanel;
@@ -63,8 +60,13 @@ public class FTView extends JFrame{
 		this.borderPanel = new BorderedPanel(BORDER_WIDTH,BORDER_WIDTH,BORDER_WIDTH,BORDER_WIDTH, Color.GRAY);
 		this.add(this.borderPanel);
 		
+		/*
+		 * Create tree views
+		 * Each view contains tree drawing plus any control components (e.g. sliders)
+		 */
+		
 		// Create tree panel
-		this.treePanel = new TreePanel(this.model, Color.WHITE);
+		this.symTreePanel = new SymTreePanel(this.model, this.controller);
 		
 		// Create random tree panel
 		this.randomTreePanel = new RandomTreePanel();
@@ -72,22 +74,26 @@ public class FTView extends JFrame{
 		// Create multi-split tree panel
 		this.multiSplitPanel = new MultiSplitPanel();
 
+		/*
+		 * Add different tree views to a card layout
+		 */
+		
 		// Create card panel and card layout
 		cardPanel = new JPanel(new CardLayout());
 		
 		// Add tree and random tree panels to card panel
-		cardPanel.add(this.treePanel, "Tree");
+		cardPanel.add(this.symTreePanel, "Tree");
 		cardPanel.add(this.randomTreePanel, "Random");
 		cardPanel.add(this.multiSplitPanel, "Multi");
 		
 		// Add card panel to border panel
 		this.borderPanel.add(cardPanel);
 		
-		// Sliders
-		this.sliderPanel = new SliderPanel(this.model, this.controller);
-		this.borderPanel.add(this.sliderPanel, BorderLayout.SOUTH);
+		/*
+		 *  NavBar panel
+		 *  NavBar allows switching between views held in card layout
+		 */
 		
-		// NavBar panel
 		this.navBarPanel = new NavBarPanel(this.controller);
 		this.borderPanel.add(this.navBarPanel, BorderLayout.NORTH);
 		
@@ -98,18 +104,14 @@ public class FTView extends JFrame{
 		return borderPanel;
 	}
 	
-	public TreePanel getTreePanel() {
-		return treePanel;
+	public SymTreePanel getSymTreePanel() {
+		return symTreePanel;
 	}
-	
+
 	public RandomTreePanel getRandomTreePanel() {
 		return randomTreePanel;
 	}
-
-	public SliderPanel getSliderPanel() {
-		return sliderPanel;
-	}
-
+	
 	public NavBarPanel getNavBarPanel() {
 		return navBarPanel;
 	}

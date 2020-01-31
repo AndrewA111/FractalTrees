@@ -39,33 +39,34 @@ public class FTController implements ChangeListener, MouseListener {
 	}
 	
 	public void stateChanged(ChangeEvent e) {
-		
+		System.out.println("Test1");
 		// If Length slider changes, update model and view
-		if (e.getSource() == this.view.getSliderPanel().getLengthSlider()) {
+		if (e.getSource() == this.view.getSymTreePanel().getSliderPanel().getLengthSlider()) {
+			System.out.println("Test2");
 			JSlider source = (JSlider) e.getSource();
 			this.model.setTrunkLength((int) source.getValue());
-			this.view.getTreePanel().repaint();
+			this.view.getSymTreePanel().getTreePanel().repaint();
 		}
 		
 		// If Length Ratio slider changes, update model and view
-		if (e.getSource() == this.view.getSliderPanel().getLengthRatioSlider()) {
+		if (e.getSource() == this.view.getSymTreePanel().getSliderPanel().getLengthRatioSlider()) {
 			JSlider source = (JSlider) e.getSource();
 			this.model.setLengthRatio(((double) source.getValue())/100);
-			this.view.getTreePanel().repaint();
+			this.view.getSymTreePanel().getTreePanel().repaint();
 		}
 		
 		// If Angle slider changes, update model and view
-		if (e.getSource() == this.view.getSliderPanel().getAngleSlider()) {
+		if (e.getSource() == this.view.getSymTreePanel().getSliderPanel().getAngleSlider()) {
 			JSlider source = (JSlider) e.getSource();
 			this.model.setAngleDelta((int) source.getValue());
-			this.view.getTreePanel().repaint();
+			this.view.getSymTreePanel().getTreePanel().repaint();
 		}
 		
 		// If Recursion Depth slider changes, update model and view
-		if (e.getSource() == this.view.getSliderPanel().getDepthSlider()) {
+		if (e.getSource() == this.view.getSymTreePanel().getSliderPanel().getDepthSlider()) {
 			JSlider source = (JSlider) e.getSource();
 			this.model.setDepth((int) source.getValue());
-			this.view.getTreePanel().repaint();
+			this.view.getSymTreePanel().getTreePanel().repaint();
 		}
 		
 	}
