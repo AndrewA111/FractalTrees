@@ -1,6 +1,13 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * View class for Fractal Tree project
@@ -14,15 +21,19 @@ public class FTView extends JFrame{
 	private FTController controller;
 	
 	//JFrame width and height
-	private final int FRAME_WIDTH = 800;
-	private final int FRAME_HEIGHT = 600;
+	private final int FRAME_WIDTH = 1000;
+	private final int FRAME_HEIGHT = 700;
 	
 	// JFrame position horizontal and vertical components
 	private final int H_POS = 100;
-	private final int V_POS = 100;
+	private final int V_POS = 10;
+	
+	// Panel to contain fractal tree
+	TreePanel treePanel;
 	
 	public FTView(FTModel model, FTController controller) {
 		
+		// Set model and controller
 		this.model = model;
 		this.controller = controller;
 		
@@ -34,10 +45,13 @@ public class FTView extends JFrame{
 		
 		// Add tree panel within a border panel		
 		BorderedPanel borderPanel = new BorderedPanel(50,50,50,50, Color.GRAY);
-		TreePanel treePanel = new TreePanel(model, Color.WHITE);
+		this.treePanel = new TreePanel(model, Color.WHITE);
 		borderPanel.add(treePanel);
 		this.add(borderPanel);
+		
+		// Sliders
+		JPanel bottomPanel = new SliderPanel(model, treePanel);
+		borderPanel.add(bottomPanel, BorderLayout.SOUTH);
+		
 	}
-	
-
 }

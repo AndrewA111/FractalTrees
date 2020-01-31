@@ -7,7 +7,7 @@ import javax.swing.border.Border;
 
 /**
  * Bordered panel helper class to frame tree panel
- * @author Andrew
+ * @author Andrew Allan
  *
  */
 public class BorderedPanel extends JPanel{

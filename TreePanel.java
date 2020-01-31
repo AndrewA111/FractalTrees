@@ -12,7 +12,7 @@ import javax.swing.border.Border;
  */
 public class TreePanel extends JPanel {
 	
-	FTModel model;
+	private FTModel model;
 	
 	public TreePanel(FTModel model, Color c) {
 		
@@ -23,12 +23,14 @@ public class TreePanel extends JPanel {
 		this.setBackground(c);
 	}
 	
+	// draw tree to panel
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		drawTree(g, this.getWidth()/2, this.getHeight(), model.trunkLength, 
-				model.lengthRatio, model.initialAngle, model.angleDelta, model.depth);
+		drawTree(g, this.getWidth()/2, this.getHeight(), model.getTrunkLength(), 
+				model.getLengthRatio(), model.getInitialAngle(), model.getAngleDelta(), model.getDepth());
 	}
 	
+	// Recursive method to draw fractal tree
 	public void drawTree(Graphics g, int x1, int y1, int L, double lRatio, int angle, int aDelta, int depth) {
 		
 		// finishing condition for recursive loop
