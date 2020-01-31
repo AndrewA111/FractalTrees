@@ -26,8 +26,8 @@ public class TreePanel extends JPanel {
 	// draw tree to panel
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		drawTree(g, this.getWidth()/2, this.getHeight(), model.getTrunkLength(), 
-				model.getLengthRatio(), model.getInitialAngle(), model.getAngleDelta(), model.getDepth());
+		drawTree(g, this.getWidth()/2, this.getHeight(), this.model.getTrunkLength(), 
+				this.model.getLengthRatio(), this.model.getInitialAngle(), this.model.getAngleDelta(), this.model.getDepth());
 	}
 	
 	// Recursive method to draw fractal tree

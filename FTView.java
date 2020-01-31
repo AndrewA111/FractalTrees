@@ -29,7 +29,8 @@ public class FTView extends JFrame{
 	private final int V_POS = 10;
 	
 	// Panel to contain fractal tree
-	TreePanel treePanel;
+	private TreePanel treePanel;
+	private SliderPanel sliderPanel;
 	
 	public FTView(FTModel model, FTController controller) {
 		
@@ -45,13 +46,24 @@ public class FTView extends JFrame{
 		
 		// Add tree panel within a border panel		
 		BorderedPanel borderPanel = new BorderedPanel(50,50,50,50, Color.GRAY);
-		this.treePanel = new TreePanel(model, Color.WHITE);
+		this.treePanel = new TreePanel(this.model, Color.WHITE);
 		borderPanel.add(treePanel);
 		this.add(borderPanel);
 		
 		// Sliders
-		JPanel bottomPanel = new SliderPanel(model, treePanel);
-		borderPanel.add(bottomPanel, BorderLayout.SOUTH);
-		
+		sliderPanel = new SliderPanel(this.model, this.controller);
+		borderPanel.add(sliderPanel, BorderLayout.SOUTH);
+			
 	}
+	
+	// Getters
+	public TreePanel getTreePanel() {
+		return treePanel;
+	}
+
+	public SliderPanel getSliderPanel() {
+		return sliderPanel;
+	}
+	
+	
 }

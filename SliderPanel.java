@@ -13,22 +13,28 @@ import javax.swing.event.ChangeListener;
 
 public class SliderPanel extends JPanel{
 	
+	// Model and controller
 	private FTModel model;
-	private TreePanel treePanel;
+	private FTController controller;
 	
-	public SliderPanel(FTModel model, TreePanel treePanel) {
+	// JSliders
+	private JSlider lengthSlider;
+	private JSlider angleSlider;
+	private JSlider lengthRatioSlider;
+	private JSlider depthSlider;
+	
+	public SliderPanel(FTModel model, FTController controller) {
 		
 		/*
 		 *  Set model
 		 *  Class should be updated so model sets ranges and initial values
 		 */
 		this.model = model;
+		this.controller = controller;
 		/*
 		 * This reference to treePanel will be moved to 
 		 * Controller with change listeners 
 		 */
-		this.treePanel = treePanel;
-		
 		
 		// set grid layout
 		this.setLayout(new GridLayout(2,4));
@@ -36,15 +42,20 @@ public class SliderPanel extends JPanel{
 		// color
 		this.setBackground(Color.LIGHT_GRAY);
 		
-		// Length slider
+		
+		/*
+		 * Length Slider
+		 */
+		
 		JLabel lengthLabel = new JLabel("Length:");
 		lengthLabel.setBorder(new EmptyBorder(0,10,0,0));
-		JSlider lengthSlider = new JSlider(25, 150, model.getTrunkLength());
+		this.lengthSlider = new JSlider(25, 150, this.model.getTrunkLength());
 		
+		// Ticks
+		this.lengthSlider.setMajorTickSpacing(25);
+		this.lengthSlider.setPaintTicks(true);
 		
-		// Ticks and Labels
-		lengthSlider.setMajorTickSpacing(25);
-		lengthSlider.setPaintTicks(true);
+		// Labels
 		Hashtable<Integer, JLabel> lengthSliderPosition = new Hashtable<Integer, JLabel>();
 		lengthSliderPosition.put(25,  new JLabel("25"));
 		lengthSliderPosition.put(50,  new JLabel("50"));
@@ -52,21 +63,26 @@ public class SliderPanel extends JPanel{
 		lengthSliderPosition.put(100,  new JLabel("100"));
 		lengthSliderPosition.put(125,  new JLabel("125"));
 		lengthSliderPosition.put(150,  new JLabel("150 "));
-		lengthSlider.setLabelTable(lengthSliderPosition);
-		lengthSlider.setPaintLabels(true);
+		this.lengthSlider.setLabelTable(lengthSliderPosition);
+		this.lengthSlider.setPaintLabels(true);
 
 		// Add to this panel
 		this.add(lengthLabel);
 		this.add(lengthSlider);
 		
-		// Length ratio slider
+		/*
+		 *  Length ratio slider
+		 */
+		
 		JLabel lengthRatioLabel = new JLabel("Length Ratio:");
 		lengthRatioLabel.setBorder(new EmptyBorder(0,10,0,0));
-		JSlider lengthRatioSlider = new JSlider(70, 95, (int) (model.getLengthRatio() * 100));
+		this.lengthRatioSlider = new JSlider(70, 95, (int) (this.model.getLengthRatio() * 100));
 		
-		// Ticks and Labels
-		lengthRatioSlider.setMajorTickSpacing(25);
-		lengthRatioSlider.setPaintTicks(true);
+		// Ticks
+		this.lengthRatioSlider.setMajorTickSpacing(25);
+		this.lengthRatioSlider.setPaintTicks(true);
+		
+		// Labels
 		Hashtable<Integer, JLabel> lengthRatioSliderPosition = new Hashtable<Integer, JLabel>();
 		lengthRatioSliderPosition.put(70,  new JLabel("  0.70"));
 		lengthRatioSliderPosition.put(75,  new JLabel("0.75"));
@@ -74,48 +90,58 @@ public class SliderPanel extends JPanel{
 		lengthRatioSliderPosition.put(85,  new JLabel("0.85"));
 		lengthRatioSliderPosition.put(90,  new JLabel("0.90"));
 		lengthRatioSliderPosition.put(95,  new JLabel("0.95  "));
-		lengthRatioSlider.setLabelTable(lengthRatioSliderPosition);
-		lengthRatioSlider.setPaintLabels(true);
+		this.lengthRatioSlider.setLabelTable(lengthRatioSliderPosition);
+		this.lengthRatioSlider.setPaintLabels(true);
 		
 		// Add to this panel
 		this.add(lengthRatioLabel);
 		this.add(lengthRatioSlider);
 				
-		// Angle slider
+		/*
+		 *  Angle slider
+		 */
+		
 		JLabel angleLabel = new JLabel("Angle:");
 		angleLabel.setBorder(new EmptyBorder(0,10,0,0));
-		JSlider angleSlider = new JSlider(0, 90, model.getAngleDelta());
+		this.angleSlider = new JSlider(0, 90, this.model.getAngleDelta());
 		
-		// Ticks and Labels
-		angleSlider.setMajorTickSpacing(20);
-		angleSlider.setPaintTicks(true);
+		// Ticks
+		this.angleSlider.setMajorTickSpacing(20);
+		this.angleSlider.setPaintTicks(true);
+		
+		//Labels
 		Hashtable<Integer, JLabel> angleSliderPosition = new Hashtable<Integer, JLabel>();
 		angleSliderPosition.put(0,  new JLabel("0"));
 		angleSliderPosition.put(30,  new JLabel("30"));
 		angleSliderPosition.put(60,  new JLabel("60"));
 		angleSliderPosition.put(90,  new JLabel("90  "));
-		angleSlider.setLabelTable(angleSliderPosition);
-		angleSlider.setPaintLabels(true);
+		this.angleSlider.setLabelTable(angleSliderPosition);
+		this.angleSlider.setPaintLabels(true);
 		
 		// Add to this panel
 		this.add(angleLabel);
 		this.add(angleSlider);
 				
-		// Depth slider
+		/*
+		 *  Depth slider
+		 */
 		JLabel depthLabel = new JLabel("Recursion Depth:");
 		depthLabel.setBorder(new EmptyBorder(0,10,0,0));
-		JSlider depthSlider = new JSlider(0, 20, model.getDepth());
+		this.depthSlider = new JSlider(0, 20, this.model.getDepth());
 		
-		depthSlider.setMajorTickSpacing(20);
-		depthSlider.setPaintTicks(true);
+		// Ticks
+		this.depthSlider.setMajorTickSpacing(20);
+		this.depthSlider.setPaintTicks(true);
+		
+		// Labels
 		Hashtable<Integer, JLabel> depthSliderPosition = new Hashtable<Integer, JLabel>();
 		depthSliderPosition.put(0,  new JLabel("0"));
 		depthSliderPosition.put(5,  new JLabel("5"));
 		depthSliderPosition.put(10,  new JLabel("10"));
 		depthSliderPosition.put(15,  new JLabel("15"));
 		depthSliderPosition.put(20,  new JLabel("20 "));
-		depthSlider.setLabelTable(depthSliderPosition);
-		depthSlider.setPaintLabels(true);
+		this.depthSlider.setLabelTable(depthSliderPosition);
+		this.depthSlider.setPaintLabels(true);
 		
 		// Add to this panel
 		this.add(depthLabel);
@@ -123,75 +149,35 @@ public class SliderPanel extends JPanel{
 		
 		
 							
-		// Add change listeners to sliders
-		lengthSlider.addChangeListener(new LengthSliderListener());
-		lengthRatioSlider.addChangeListener(new LengthRatioSliderListener());
-		angleSlider.addChangeListener(new AngleSliderListener());
-		depthSlider.addChangeListener(new DepthSliderListener());
+		/*
+		 *  Add controller to sliders
+		 */
+		this.lengthSlider.addChangeListener(this.controller);
+		this.lengthRatioSlider.addChangeListener(this.controller);
+		this.angleSlider.addChangeListener(this.controller);
+		this.depthSlider.addChangeListener(this.controller);
+	}
+	
+	
+	/*
+	 *  Getters	
+	 */
+	
+	public JSlider getLengthSlider() {
+		return lengthSlider;
 	}
 
-	/*
-	 * Change listener classes to be moved to controller
-	 */
-	
-	/**
-	 * Change listener for Trunk Length slider
-	 * @author Andrew Allan
-	 *
-	 */
-	public class LengthSliderListener implements ChangeListener {
-			
-		public void stateChanged(ChangeEvent e) {
-			JSlider source = (JSlider) e.getSource();
-			model.setTrunkLength((int) source.getValue());
-			treePanel.repaint();
-		}
+	public JSlider getAngleSlider() {
+		return angleSlider;
 	}
-	
-	/**
-	 * Change listener for Length Ratio slider
-	 * @author Andrew Allan
-	 *
-	 */
-	public class LengthRatioSliderListener implements ChangeListener {
-		
-		public void stateChanged(ChangeEvent e) {
-			JSlider source = (JSlider) e.getSource();
-			model.setLengthRatio(((double) source.getValue())/100);
-			treePanel.repaint();
-			}
+
+	public JSlider getLengthRatioSlider() {
+		return lengthRatioSlider;
 	}
-	
-	/**
-	 * Change listener for Angle slider
-	 * @author Andrew Allan
-	 *
-	 */
-	public class AngleSliderListener implements ChangeListener {
-		
-		public void stateChanged(ChangeEvent e) {
-			JSlider source = (JSlider) e.getSource();
-			model.setAngleDelta((int) source.getValue());
-			treePanel.repaint();
-			}
-	}
-	
-	/**
-	 * Change listener for Recusion Dept Slider
-	 * @author Andrew Allan
-	 *
-	 */
-	public class DepthSliderListener implements ChangeListener {
-		
-		public void stateChanged(ChangeEvent e) {
-			JSlider source = (JSlider) e.getSource();
-			model.setDepth((int) source.getValue());
-			treePanel.repaint();
-		}
-	}
-	
-	
-	
+
+	public JSlider getDepthSlider() {
+		return depthSlider;
+	}	
 	
 }
 
