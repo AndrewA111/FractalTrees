@@ -1,9 +1,6 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 /**
  * Class to create a symmetrical fractal tree

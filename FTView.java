@@ -1,13 +1,8 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * View class for Fractal Tree project
@@ -31,14 +26,26 @@ public class FTView extends JFrame{
 	// Border width
 	private final int BORDER_WIDTH = 35;
 	
-	// Panel to contain fractal tree
+	// Border panel
+	private BorderedPanel borderPanel;
+	
+	// Panel to contain symmetrical fractal tree
 	private TreePanel treePanel;
 	
-	// PAnel to contain sliders
+	// Panel to contain random fractal tree
+	private RandomTreePanel randomTreePanel;
+	
+	// Panel to contain multi-split fractal tree
+	private MultiSplitPanel multiSplitPanel;
+	
+	// Panel to contain sliders
 	private SliderPanel sliderPanel;
 	
 	// Panel to contain NavBar
 	private NavBarPanel navBarPanel;
+	
+	// Card panel to switch between tree types
+	private JPanel cardPanel;
 	
 	public FTView(FTModel model, FTController controller) {
 		
@@ -52,25 +59,51 @@ public class FTView extends JFrame{
 		setLocation(H_POS,V_POS);
 		setTitle("Fractal Trees");
 		
-		// Add tree panel within a border panel		
-		BorderedPanel borderPanel = new BorderedPanel(BORDER_WIDTH,BORDER_WIDTH,BORDER_WIDTH,BORDER_WIDTH, Color.GRAY);
+		// Add border panel		
+		this.borderPanel = new BorderedPanel(BORDER_WIDTH,BORDER_WIDTH,BORDER_WIDTH,BORDER_WIDTH, Color.GRAY);
+		this.add(this.borderPanel);
+		
+		// Create tree panel
 		this.treePanel = new TreePanel(this.model, Color.WHITE);
-		borderPanel.add(this.treePanel);
-		this.add(borderPanel);
+		
+		// Create random tree panel
+		this.randomTreePanel = new RandomTreePanel();
+		
+		// Create multi-split tree panel
+		this.multiSplitPanel = new MultiSplitPanel();
+
+		// Create card panel and card layout
+		cardPanel = new JPanel(new CardLayout());
+		
+		// Add tree and random tree panels to card panel
+		cardPanel.add(this.treePanel, "Tree");
+		cardPanel.add(this.randomTreePanel, "Random");
+		cardPanel.add(this.multiSplitPanel, "Multi");
+		
+		// Add card panel to border panel
+		this.borderPanel.add(cardPanel);
 		
 		// Sliders
 		this.sliderPanel = new SliderPanel(this.model, this.controller);
-		borderPanel.add(this.sliderPanel, BorderLayout.SOUTH);
+		this.borderPanel.add(this.sliderPanel, BorderLayout.SOUTH);
 		
 		// NavBar panel
 		this.navBarPanel = new NavBarPanel(this.controller);
-		borderPanel.add(this.navBarPanel, BorderLayout.NORTH);
-			
+		this.borderPanel.add(this.navBarPanel, BorderLayout.NORTH);
+		
 	}
 	
 	// Getters
+	public BorderedPanel getBorderPanel() {
+		return borderPanel;
+	}
+	
 	public TreePanel getTreePanel() {
 		return treePanel;
+	}
+	
+	public RandomTreePanel getRandomTreePanel() {
+		return randomTreePanel;
 	}
 
 	public SliderPanel getSliderPanel() {
@@ -80,8 +113,9 @@ public class FTView extends JFrame{
 	public NavBarPanel getNavBarPanel() {
 		return navBarPanel;
 	}
-	
-	
-	
-	
+
+	public JPanel getCardPanel() {
+		return cardPanel;
+	}
+
 }

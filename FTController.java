@@ -1,3 +1,4 @@
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -87,7 +88,30 @@ public class FTController implements ChangeListener, MouseListener {
 			// set active panel and highlight
 			activePanel = (JPanel) e.getSource();
 			((JPanel) e.getSource()).setBackground(Color.LIGHT_GRAY);
+			
+			/*
+			 *  Check which nav button is active, and switch to associated view
+			 */
+			
+			// Symmetrical tree
+			if(activePanel == this.view.getNavBarPanel().getModeOne()) {
+				CardLayout c = (CardLayout) (this.view.getCardPanel().getLayout());
+				c.show(this.view.getCardPanel(), "Tree");
+			}
+			
+			// Random tree
+			if(activePanel == this.view.getNavBarPanel().getModeTwo()) {
+				CardLayout c = (CardLayout) (this.view.getCardPanel().getLayout());
+				c.show(this.view.getCardPanel(), "Random");				
+			}
+			
+			// Multi split tree
+			if(activePanel == this.view.getNavBarPanel().getModeThree()) {
+				CardLayout c = (CardLayout) (this.view.getCardPanel().getLayout());
+				c.show(this.view.getCardPanel(), "Multi");				
+			}
 		}
+		
 	}
 
 	@Override
