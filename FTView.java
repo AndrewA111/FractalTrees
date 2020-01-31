@@ -28,9 +28,17 @@ public class FTView extends JFrame{
 	private final int H_POS = 100;
 	private final int V_POS = 10;
 	
+	// Border width
+	private final int BORDER_WIDTH = 35;
+	
 	// Panel to contain fractal tree
 	private TreePanel treePanel;
+	
+	// PAnel to contain sliders
 	private SliderPanel sliderPanel;
+	
+	// Panel to contain NavBar
+	private NavBarPanel navBarPanel;
 	
 	public FTView(FTModel model, FTController controller) {
 		
@@ -45,14 +53,18 @@ public class FTView extends JFrame{
 		setTitle("Fractal Trees");
 		
 		// Add tree panel within a border panel		
-		BorderedPanel borderPanel = new BorderedPanel(50,50,50,50, Color.GRAY);
+		BorderedPanel borderPanel = new BorderedPanel(BORDER_WIDTH,BORDER_WIDTH,BORDER_WIDTH,BORDER_WIDTH, Color.GRAY);
 		this.treePanel = new TreePanel(this.model, Color.WHITE);
-		borderPanel.add(treePanel);
+		borderPanel.add(this.treePanel);
 		this.add(borderPanel);
 		
 		// Sliders
-		sliderPanel = new SliderPanel(this.model, this.controller);
-		borderPanel.add(sliderPanel, BorderLayout.SOUTH);
+		this.sliderPanel = new SliderPanel(this.model, this.controller);
+		borderPanel.add(this.sliderPanel, BorderLayout.SOUTH);
+		
+		// NavBar panel
+		this.navBarPanel = new NavBarPanel(this.controller);
+		borderPanel.add(this.navBarPanel, BorderLayout.NORTH);
 			
 	}
 	
@@ -64,6 +76,12 @@ public class FTView extends JFrame{
 	public SliderPanel getSliderPanel() {
 		return sliderPanel;
 	}
+
+	public NavBarPanel getNavBarPanel() {
+		return navBarPanel;
+	}
+	
+	
 	
 	
 }

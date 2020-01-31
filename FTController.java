@@ -1,3 +1,8 @@
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -7,11 +12,14 @@ import javax.swing.event.ChangeListener;
  * @author Andrew Allan
  *
  */
-public class FTController implements ChangeListener {
+public class FTController implements ChangeListener, MouseListener {
 	
 	// Model and view
 	private FTModel model;
 	private FTView view;
+	
+	// Variable to track which panel is active
+	private JPanel activePanel;
 	
 
 	/*
@@ -60,6 +68,67 @@ public class FTController implements ChangeListener {
 		}
 		
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		/*
+		 * When panel is clicked, set to activePanel
+		 * Active panel is highlighted and others default colour
+		 */
+		if (e.getSource() == this.view.getNavBarPanel().getModeOne()
+				|| e.getSource() == this.view.getNavBarPanel().getModeTwo()
+				|| e.getSource() == this.view.getNavBarPanel().getModeThree()) {
+			
+			// Set all panels to default colour
+			this.view.getNavBarPanel().getModeOne().setBackground(null);
+			this.view.getNavBarPanel().getModeTwo().setBackground(null);
+			this.view.getNavBarPanel().getModeThree().setBackground(null);
+			
+			// set active panel and highlight
+			activePanel = (JPanel) e.getSource();
+			((JPanel) e.getSource()).setBackground(Color.LIGHT_GRAY);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		/*
+		 * If mouse is in a panel, highlight panel
+		 */
+		if ((e.getSource() == this.view.getNavBarPanel().getModeOne()
+				|| e.getSource() == this.view.getNavBarPanel().getModeTwo()
+				|| e.getSource() == this.view.getNavBarPanel().getModeThree()
+				) && e.getSource() != activePanel) {
+			((JPanel) e.getSource()).setBackground(Color.LIGHT_GRAY);
+		}
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		/*
+		 * When mouse leaves a panel, set colour back to default,
+		 * unless panel is activePanel
+		 */
+		if ((e.getSource() == this.view.getNavBarPanel().getModeOne()
+				|| e.getSource() == this.view.getNavBarPanel().getModeTwo()
+				|| e.getSource() == this.view.getNavBarPanel().getModeThree()
+				) && e.getSource() != activePanel){
+			((JPanel) e.getSource()).setBackground(null);
+		}
+	}
+
+	
 	
 
 }
