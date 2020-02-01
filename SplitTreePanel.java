@@ -33,27 +33,27 @@ public class SplitTreePanel extends JPanel {
 		super.paintComponent(g);
 		
 		// If random mode selected
-		if(this.model.getMultiModel().isRandTree()) {
+		if(this.model.getSplitModel().isRandTree()) {
 		drawTreeRand(g, this.getWidth()/2, this.getHeight(), 
-				this.model.getMultiModel().getTrunkLength(),
-				this.model.getMultiModel().getLengthRatio(),
-				this.model.getMultiModel().getInitialAngle(),
-				this.model.getMultiModel().getArc(),
-				this.model.getMultiModel().getAngleRange(),
-				this.model.getMultiModel().getNoBranches(),
-				this.model.getMultiModel().getDepth());
+				this.model.getSplitModel().getTrunkLength(),
+				this.model.getSplitModel().getLengthRatio(),
+				this.model.getSplitModel().getInitialAngle(),
+				this.model.getSplitModel().getArc(),
+				this.model.getSplitModel().getAngleRange(),
+				this.model.getSplitModel().getNoBranches(),
+				this.model.getSplitModel().getDepth());
 
 		}
 		
 		// Otherwise, symmetrical mode
 		else {
 		drawTree(g, this.getWidth()/2, this.getHeight(), 
-				this.model.getMultiModel().getTrunkLength(),
-				this.model.getMultiModel().getLengthRatio(),
-				this.model.getMultiModel().getInitialAngle(),
-				this.model.getMultiModel().getArc(),
-				this.model.getMultiModel().getNoBranches(),
-				this.model.getMultiModel().getDepth());
+				this.model.getSplitModel().getTrunkLength(),
+				this.model.getSplitModel().getLengthRatio(),
+				this.model.getSplitModel().getInitialAngle(),
+				this.model.getSplitModel().getArc(),
+				this.model.getSplitModel().getNoBranches(),
+				this.model.getSplitModel().getDepth());
 		}
 	}
 	
@@ -82,12 +82,19 @@ public class SplitTreePanel extends JPanel {
 		for(int i = 0 ; i < n; i++) {
 			// random offset +/- aRange/2
 			int randOffset = random.nextInt(aRange) - (aRange / 2);
-
-			// angle to loop evenly through arc
-			int varAngle = (angle - (arc / 2) + (i * arc / (n-1)));
 			
-			drawTreeRand(g, x2, y2, (int) (L * lRatio), lRatio, 
-					varAngle + randOffset, arc, aRange, n, depth -1);
+			if(n > 1) {
+				// angle to loop evenly through arc
+				int varAngle = (angle - (arc / 2) + (i * arc / (n-1)));
+				
+				drawTreeRand(g, x2, y2, (int) (L * lRatio), lRatio, 
+						varAngle + randOffset, arc, aRange, n, depth -1);
+			}
+			else {
+				drawTreeRand(g, x2, y2, (int) (L * lRatio), lRatio, 
+						(arc / 2) + randOffset, arc, aRange, n, depth -1);;
+			}
+			
 		}
 	}
 	
@@ -114,12 +121,23 @@ public class SplitTreePanel extends JPanel {
 		 */
 		
 		for(int i = 0 ; i < n; i++) {
-			// angle to loop evenly through arc
-			int varAngle = (angle - (arc / 2) + (i * arc / (n-1)));
 			
-			drawTree(g, x2, y2, (int) (L * lRatio), lRatio, 
-					varAngle , 
-					arc, n, depth -1);
+			
+			if(n > 1) {
+				// angle to loop evenly through arc
+				int varAngle = (angle - (arc / 2) + (i * arc / (n-1)));
+				
+				drawTree(g, x2, y2, (int) (L * lRatio), lRatio, 
+						varAngle , 
+						arc, n, depth -1);
+			}
+			else {
+				drawTree(g, x2, y2, (int) (L * lRatio), lRatio, 
+						angle - arc/2, 
+						arc, n, depth -1);;
+			}
+			
+			
 		}
 	}
 }

@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
  * @author Andrew Allan
  *
  */
-public class SliderPanel extends JPanel{
+public class SymSliderPanel extends JPanel{
 	
 	// Model and controller
 	private FTModel model;
@@ -25,23 +25,18 @@ public class SliderPanel extends JPanel{
 	private JSlider lengthRatioSlider;
 	private JSlider depthSlider;
 	
-	public SliderPanel(FTModel model, FTController controller) {
+	public SymSliderPanel(FTModel model, FTController controller) {
 		
 		/*
 		 *  Set model
-		 *  Class should be updated so model sets ranges and initial values
 		 */
 		this.model = model;
 		this.controller = controller;
-		/*
-		 * This reference to treePanel will be moved to 
-		 * Controller with change listeners 
-		 */
 		
-		// set grid layout
+		// Set grid layout
 		this.setLayout(new GridLayout(2,4));
 		
-		// color
+		// Colour
 		this.setBackground(Color.LIGHT_GRAY);
 		
 		
@@ -81,7 +76,7 @@ public class SliderPanel extends JPanel{
 		this.lengthRatioSlider = new JSlider(70, 95, (int) (this.model.getSymModel().getLengthRatio() * 100));
 		
 		// Ticks
-		this.lengthRatioSlider.setMajorTickSpacing(25);
+		this.lengthRatioSlider.setMajorTickSpacing(5);
 		this.lengthRatioSlider.setPaintTicks(true);
 		
 		// Labels
@@ -108,7 +103,7 @@ public class SliderPanel extends JPanel{
 		this.angleSlider = new JSlider(0, 90, this.model.getSymModel().getAngleDelta());
 		
 		// Ticks
-		this.angleSlider.setMajorTickSpacing(20);
+		this.angleSlider.setMajorTickSpacing(30);
 		this.angleSlider.setPaintTicks(true);
 		
 		//Labels
@@ -129,10 +124,10 @@ public class SliderPanel extends JPanel{
 		 */
 		JLabel depthLabel = new JLabel("Recursion Depth:");
 		depthLabel.setBorder(new EmptyBorder(0,10,0,0));
-		this.depthSlider = new JSlider(0, 20, this.model.getSymModel().getDepth());
+		this.depthSlider = new JSlider(0, 15, this.model.getSymModel().getDepth());
 		
 		// Ticks
-		this.depthSlider.setMajorTickSpacing(20);
+		this.depthSlider.setMajorTickSpacing(5);
 		this.depthSlider.setPaintTicks(true);
 		
 		// Labels
@@ -141,7 +136,6 @@ public class SliderPanel extends JPanel{
 		depthSliderPosition.put(5,  new JLabel("5"));
 		depthSliderPosition.put(10,  new JLabel("10"));
 		depthSliderPosition.put(15,  new JLabel("15"));
-		depthSliderPosition.put(20,  new JLabel("20 "));
 		this.depthSlider.setLabelTable(depthSliderPosition);
 		this.depthSlider.setPaintLabels(true);
 		
@@ -158,12 +152,11 @@ public class SliderPanel extends JPanel{
 		this.lengthRatioSlider.addChangeListener(this.controller);
 		this.angleSlider.addChangeListener(this.controller);
 		this.depthSlider.addChangeListener(this.controller);
+
 	}
 	
 	
-	/*
-	 *  Getters	
-	 */
+	// Getters
 	
 	public JSlider getLengthSlider() {
 		return lengthSlider;

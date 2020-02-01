@@ -30,13 +30,13 @@ public class FTView extends JFrame{
 	private BorderedPanel borderPanel;
 	
 	// Panel to contain symmetrical tree and sliders
-	private SymTreePanel symTreePanel;
+	private SymPanel symTreePanel;
 	
 	// Panel to contain random fractal tree
 	private RandomTreePanel randomTreePanel;
 	
 	// Panel to contain multi-split fractal tree
-	private SplitPanel multiSplitPanel;
+	private SplitPanel splitPanel;
 	
 	// Panel to contain NavBar
 	private NavBarPanel navBarPanel;
@@ -66,13 +66,13 @@ public class FTView extends JFrame{
 		 */
 		
 		// Create tree panel
-		this.symTreePanel = new SymTreePanel(this.model, this.controller);
+		this.symTreePanel = new SymPanel(this.model, this.controller);
 		
 		// Create random tree panel
 		this.randomTreePanel = new RandomTreePanel(this.model, Color.WHITE);
 		
 		// Create multi-split tree panel
-		this.multiSplitPanel = new SplitPanel(this.model);
+		this.splitPanel = new SplitPanel(this.model, this.controller);
 
 		/*
 		 * Add different tree views to a card layout
@@ -84,7 +84,7 @@ public class FTView extends JFrame{
 		// Add tree and random tree panels to card panel
 		cardPanel.add(this.symTreePanel, "Tree");
 		cardPanel.add(this.randomTreePanel, "Random");
-		cardPanel.add(this.multiSplitPanel, "Multi");
+		cardPanel.add(this.splitPanel, "Multi");
 		
 		// Add card panel to border panel
 		this.borderPanel.add(cardPanel);
@@ -97,6 +97,7 @@ public class FTView extends JFrame{
 		this.navBarPanel = new NavBarPanel(this.controller);
 		this.borderPanel.add(this.navBarPanel, BorderLayout.NORTH);
 		
+		
 	}
 	
 	// Getters
@@ -104,7 +105,7 @@ public class FTView extends JFrame{
 		return borderPanel;
 	}
 	
-	public SymTreePanel getSymTreePanel() {
+	public SymPanel getSymTreePanel() {
 		return symTreePanel;
 	}
 
@@ -112,6 +113,10 @@ public class FTView extends JFrame{
 		return randomTreePanel;
 	}
 	
+	public SplitPanel getSplitPanel() {
+		return splitPanel;
+	}
+
 	public NavBarPanel getNavBarPanel() {
 		return navBarPanel;
 	}

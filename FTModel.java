@@ -8,7 +8,7 @@ public class FTModel {
 	
 	private SymModel symModel;
 	private RandomModel randomModel;
-	private SplitModel multiModel;
+	private SplitModel splitModel;
 	
 	public FTModel() {
 		
@@ -25,7 +25,7 @@ public class FTModel {
 		/*
 		 * Model for the multi-split fractal tree
 		 */
-		this.multiModel = new SplitModel();
+		this.splitModel = new SplitModel();
 	}
 	
 	// Getters
@@ -37,8 +37,8 @@ public class FTModel {
 		return randomModel;
 	}
 
-	public SplitModel getMultiModel() {
-		return multiModel;
-	}	
-	
+	public SplitModel getSplitModel() {
+		return splitModel;
+	}
+
 }

@@ -37,7 +37,7 @@ public class NavBarPanel extends JPanel{
 		
 		JLabel labelOne = new JLabel("Symmetrical");
 		JLabel labelTwo = new JLabel("Random");
-		JLabel labelThree = new JLabel("Multi");
+		JLabel labelThree = new JLabel("Split");
 		
 		// Padding
 		labelOne.setBorder(new EmptyBorder(10,0,10,0));

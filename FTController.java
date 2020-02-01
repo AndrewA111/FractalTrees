@@ -39,40 +39,83 @@ public class FTController implements ChangeListener, MouseListener {
 	}
 	
 	public void stateChanged(ChangeEvent e) {
+		
+		/*
+		 * Symmetrical tree panel
+		 */
+		
 		// If Length slider changes, update model and view
-		if (e.getSource() == this.view.getSymTreePanel().getSliderPanel().getLengthSlider()) {
+		if (e.getSource() == this.view.getSymTreePanel().getSymSliderPanel().getLengthSlider()) {
 			JSlider source = (JSlider) e.getSource();
 			this.model.getSymModel().setTrunkLength((int) source.getValue());
-			this.view.getSymTreePanel().getTreePanel().repaint();
+			this.view.getSymTreePanel().getSymTreePanel().repaint();
 		}
 		
 		// If Length Ratio slider changes, update model and view
-		if (e.getSource() == this.view.getSymTreePanel().getSliderPanel().getLengthRatioSlider()) {
+		if (e.getSource() == this.view.getSymTreePanel().getSymSliderPanel().getLengthRatioSlider()) {
 			JSlider source = (JSlider) e.getSource();
 			this.model.getSymModel().setLengthRatio(((double) source.getValue())/100);
-			this.view.getSymTreePanel().getTreePanel().repaint();
+			this.view.getSymTreePanel().getSymTreePanel().repaint();
 		}
 		
 		// If Angle slider changes, update model and view
-		if (e.getSource() == this.view.getSymTreePanel().getSliderPanel().getAngleSlider()) {
+		if (e.getSource() == this.view.getSymTreePanel().getSymSliderPanel().getAngleSlider()) {
 			JSlider source = (JSlider) e.getSource();
 			this.model.getSymModel().setAngleDelta((int) source.getValue());
-			this.view.getSymTreePanel().getTreePanel().repaint();
+			this.view.getSymTreePanel().getSymTreePanel().repaint();
 		}
 		
 		// If Recursion Depth slider changes, update model and view
-		if (e.getSource() == this.view.getSymTreePanel().getSliderPanel().getDepthSlider()) {
+		if (e.getSource() == this.view.getSymTreePanel().getSymSliderPanel().getDepthSlider()) {
 			JSlider source = (JSlider) e.getSource();
 			this.model.getSymModel().setDepth((int) source.getValue());
-			this.view.getSymTreePanel().getTreePanel().repaint();
+			this.view.getSymTreePanel().getSymTreePanel().repaint();
 		}
 		
+		/*
+		 *  Split tree panel
+		 */
+		
+		// If Length slider changes, update model and view
+		if (e.getSource() == this.view.getSplitPanel().getSplitSliderPanel().getLengthSlider()) {
+			JSlider source = (JSlider) e.getSource();
+			this.model.getSplitModel().setTrunkLength((int) source.getValue());
+			this.view.getSplitPanel().getSplitTreePanel().repaint();
+		}
+		
+		// If Length Ratio slider changes, update model and view
+		if (e.getSource() == this.view.getSplitPanel().getSplitSliderPanel().getLengthRatioSlider()) {
+			JSlider source = (JSlider) e.getSource();
+			this.model.getSplitModel().setLengthRatio(((double) source.getValue())/100);
+			this.view.getSplitPanel().getSplitTreePanel().repaint();
+		}
+		
+		// If Arc slider changes, update model and view
+		if (e.getSource() == this.view.getSplitPanel().getSplitSliderPanel().getArcSlider()) {
+			JSlider source = (JSlider) e.getSource();
+			this.model.getSplitModel().setArc((int) source.getValue());
+			this.view.getSplitPanel().getSplitTreePanel().repaint();
+		}
+		
+		// If Arc slider changes, update model and view
+		if (e.getSource() == this.view.getSplitPanel().getSplitSliderPanel().getNoBranchSlider()) {
+			JSlider source = (JSlider) e.getSource();
+			this.model.getSplitModel().setNoBranches((int) source.getValue());
+			this.view.getSplitPanel().getSplitTreePanel().repaint();
+		}
+		
+		// If Recursion Depth slider changes, update model and view
+		if (e.getSource() == this.view.getSplitPanel().getSplitSliderPanel().getDepthSlider()) {
+			JSlider source = (JSlider) e.getSource();
+			this.model.getSplitModel().setDepth((int) source.getValue());
+			this.view.getSplitPanel().getSplitTreePanel().repaint();
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		/*
-		 * When panel is clicked, set to activePanel
+		 * When navbar panel is clicked, set to activePanel
 		 * Active panel is highlighted and others default colour
 		 */
 		if (e.getSource() == this.view.getNavBarPanel().getModeOne()
@@ -109,6 +152,40 @@ public class FTController implements ChangeListener, MouseListener {
 				CardLayout c = (CardLayout) (this.view.getCardPanel().getLayout());
 				c.show(this.view.getCardPanel(), "Multi");				
 			}
+		}
+		
+		/**
+		 *  Split tree panel - random/symmetrical selection
+		 */
+		
+		// If symmetrical selected
+		if(e.getSource() == this.view.getSplitPanel().getSplitSliderPanel().getSymOption()) {
+			
+			this.model.getSplitModel().setRandTree(false);
+			
+			this.view.getSplitPanel().getSplitSliderPanel().getSymOption().setBackground(Color.DARK_GRAY);
+			this.view.getSplitPanel().getSplitSliderPanel().getSymTitle().setForeground(Color.WHITE);
+			
+			this.view.getSplitPanel().getSplitSliderPanel().getRandOption().setBackground(null);
+			this.view.getSplitPanel().getSplitSliderPanel().getRandTitle().setForeground(Color.black);
+			
+			this.view.getSplitPanel().getSplitTreePanel().repaint();
+			
+			
+		}
+		
+		// If random selected
+		if(e.getSource() == this.view.getSplitPanel().getSplitSliderPanel().getRandOption()) {
+			
+			this.model.getSplitModel().setRandTree(true);
+			
+			this.view.getSplitPanel().getSplitSliderPanel().getRandOption().setBackground(Color.DARK_GRAY);
+			this.view.getSplitPanel().getSplitSliderPanel().getRandTitle().setForeground(Color.WHITE);
+			
+			this.view.getSplitPanel().getSplitSliderPanel().getSymOption().setBackground(null);
+			this.view.getSplitPanel().getSplitSliderPanel().getSymTitle().setForeground(Color.BLACK);
+			
+			this.view.getSplitPanel().getSplitTreePanel().repaint();
 		}
 		
 	}
@@ -149,6 +226,15 @@ public class FTController implements ChangeListener, MouseListener {
 				) && e.getSource() != activePanel){
 			((JPanel) e.getSource()).setBackground(null);
 		}
+	}
+
+	
+	public JPanel getActivePanel() {
+		return activePanel;
+	}
+
+	public void setActivePanel(JPanel activePanel) {
+		this.activePanel = activePanel;
 	}
 
 	

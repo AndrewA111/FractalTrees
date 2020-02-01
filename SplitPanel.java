@@ -1,8 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -13,15 +10,18 @@ import javax.swing.JPanel;
  */
 public class SplitPanel extends JPanel {
 	
-	// Model
+	// Model and controller variables
 	private FTModel model;
+	private FTController controller;
 	
-	// Sub-panel containing tree
+	// Tree-drawing and sliders sub panels
 	private SplitTreePanel splitTreePanel;
+	private SplitSliderPanel splitSliderPanel;
 	
-	public SplitPanel(FTModel model) {
+	public SplitPanel(FTModel model, FTController controller) {
 		
 		this.model = model;
+		this.controller = controller;
 		
 		// Border layout
 		this.setLayout(new BorderLayout());
@@ -29,5 +29,23 @@ public class SplitPanel extends JPanel {
 		// Add tree panel
 		this.splitTreePanel = new SplitTreePanel(this.model, Color.WHITE);
 		this.add(splitTreePanel);
+		
+		// Add slider panel
+		this.splitSliderPanel = new SplitSliderPanel(this.model, this.controller);
+		this.add(splitSliderPanel, BorderLayout.EAST);
+		
+		
 	}
+	
+	// Getters
+	public SplitSliderPanel getSplitSliderPanel() {
+		return splitSliderPanel;
+	}
+
+	public SplitTreePanel getSplitTreePanel() {
+		return splitTreePanel;
+	}
+	
+	
+	
 }

@@ -1,52 +1,60 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-
+import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
- * Class to hold symmetrical fractal tree drawing and associated control elements
+ * Class to create a symmetrical fractal tree
  * @author Andrew Allan
  *
  */
-public class SymTreePanel extends JPanel{
+public class SymTreePanel extends JPanel {
 	
-	// Model and controller variables
 	private FTModel model;
-	private FTController controller;
 	
-	// Tree-drawing and sliders sub panels
-	private TreePanel treePanel;
-	private SliderPanel sliderPanel;
-	
-	public SymTreePanel(FTModel model, FTController controller) {
+	public SymTreePanel(FTModel model, Color c) {
 		
-		//Set model and controller
+		// Set model
 		this.model = model;
-		this.controller = controller;
 		
-		// Border layout
-		this.setLayout(new BorderLayout());
-		
-		// Create tree panel
-		this.treePanel = new TreePanel(this.model, Color.WHITE);
-		
-		// Create sliders panel
-		this.sliderPanel = new SliderPanel(this.model, this.controller);
-		
-		// Add tree and slider panel to this panel
-		this.add(this.treePanel);
-		this.add(this.sliderPanel, BorderLayout.SOUTH);
+		// set colour
+		this.setBackground(c);
 	}
 	
-	// Getters
-	public TreePanel getTreePanel() {
-		return treePanel;
-	}
-
-	public SliderPanel getSliderPanel() {
-		return sliderPanel;
+	/*
+	 *  draw tree to panel
+	 */
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		drawTree(g, this.getWidth()/2, this.getHeight(), 
+				this.model.getSymModel().getTrunkLength(), 
+				this.model.getSymModel().getLengthRatio(), 
+				this.model.getSymModel().getInitialAngle(), 
+				this.model.getSymModel().getAngleDelta(), 
+				this.model.getSymModel().getDepth());
 	}
 	
-	
+	/*
+	 *  Recursive method to draw fractal tree
+	 */
+	public void drawTree(Graphics g, int x1, int y1, int L, double lRatio, int angle, int aDelta, int depth) {
+		
+		// finishing condition for recursive loop
+		if (depth == 0) return;
+		
+		// line end points
+		int x2 = x1 + (int) (L * Math.cos(Math.toRadians(angle)));
+		int y2 = y1 - (int) (L * Math.sin(Math.toRadians(angle)));
+		
+		// draw line from (x1, y1) to (x2, y2)
+		g.drawLine(x1, y1, x2, y2);
+		
+		/*
+		 *  recursively call drawTree
+		 *  length reduces by factor of 'lRatio'
+		 *  angle varies +/- 'delatAngle' degrees
+		 */
+		drawTree(g, x2, y2, (int) (L * lRatio), lRatio, angle - aDelta, aDelta, depth -1);
+		drawTree(g, x2, y2, (int) (L * lRatio), lRatio, angle + aDelta, aDelta, depth -1);
+	}
 
 }
