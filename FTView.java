@@ -36,7 +36,7 @@ public class FTView extends JFrame{
 	private RandomTreePanel randomTreePanel;
 	
 	// Panel to contain multi-split fractal tree
-	private MultiSplitPanel multiSplitPanel;
+	private SplitPanel multiSplitPanel;
 	
 	// Panel to contain NavBar
 	private NavBarPanel navBarPanel;
@@ -72,7 +72,7 @@ public class FTView extends JFrame{
 		this.randomTreePanel = new RandomTreePanel(this.model, Color.WHITE);
 		
 		// Create multi-split tree panel
-		this.multiSplitPanel = new MultiSplitPanel();
+		this.multiSplitPanel = new SplitPanel(this.model);
 
 		/*
 		 * Add different tree views to a card layout

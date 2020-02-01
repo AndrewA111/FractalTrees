@@ -4,7 +4,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
- * Class to hold symmetrical fractal tree drawing and associated sliders
+ * Class to hold symmetrical fractal tree drawing and associated control elements
  * @author Andrew Allan
  *
  */
